@@ -17,7 +17,7 @@ func main() {
 	db := config.InitDatabase()
 	routes.Routes(db)
 
-	log.Println("Service berjalan di http://localhost:8000")
+	log.Println("Service berjalan di port :8000")
 	http.ListenAndServe(":8000", nil)
 
 }
