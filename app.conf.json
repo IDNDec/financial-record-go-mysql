@@ -1,14 +1,14 @@
 {
     "DATABASE": {
-        "USER": "root",
-        "PASSWORD": "root",
+        "USER": "admin",
+        "PASSWORD": "idnmantab123",
         "NAME": "financial_record",
-        "HOST": "127.0.0.1",
-        "PORT": "8889",
+        "HOST": "172.23.13.13",
+        "PORT": "3306",
         "DRIVER": "mysql"
     },
     "SESSION": {
-        "ID": "finacial_record_okt",
+        "ID": "financial_record_okt",
         "FLASH": "flash_logout"
     }
 }
