@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"financial-record/views"
 	"financial-record/config"
 )
 
@@ -31,6 +32,12 @@ func TestSimple_Endpoints_Accessible(t *testing.T) {
 	ac := NewAuthController(nil)
 	fc := NewFinancialController(nil)
 	uc := NewUserController(nil)
+
+		// Mock views.RenderTemplate agar tidak error jika file template tidak ada
+		views.RenderTemplate = func(w http.ResponseWriter, path string, data interface{}) {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("OK"))
+		}
 
 	tests := []struct {
 		name    string
