@@ -44,8 +44,13 @@ func (controller UserController) Profile(writer http.ResponseWriter, request *ht
 		sessions.Save(request, writer)
 	}
 
-	// ambil user id dari session
-	sessionUserId := sessions.Values["ID"].(string)
+	// ambil user id dari session (nil-safe)
+	idVal := sessions.Values["ID"]
+	sessionUserId, _ := idVal.(string)
+	if sessionUserId == "" {
+		http.Redirect(writer, request, "/login", http.StatusSeeOther)
+		return
+	}
 
 	// tampilkan data user berdasarkan id
 	user, err := models.NewUserModel(controller.db).FindUserById(sessionUserId)

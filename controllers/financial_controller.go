@@ -79,7 +79,12 @@ func (controller *FinancialController) Home(writer http.ResponseWriter, request 
 	data["pengeluaranOnly"] = pengeluaranOnly
 
 	// tampilkan total Pemasukan dan Pengeluaran
-	sessionUserId := sessions.Values["ID"].(string)
+	idVal := sessions.Values["ID"]
+	sessionUserId, _ := idVal.(string)
+	if sessionUserId == "" {
+		http.Redirect(writer, request, "/login", http.StatusSeeOther)
+		return
+	}
 	model := models.NewFinancalModel(controller.db)
 	totalPemasukan, totalPengeluaran, err := model.GetFinancialTotalNominal(sessionUserId, selectedMonth, pemasukanOnly, pengeluaranOnly)
 	if err != nil {
@@ -225,7 +230,12 @@ func (controller *FinancialController) DownloadFinancialRecord(writer http.Respo
 	data["pengeluaranOnly"] = pengeluaranOnly
 
 	// tampilkan total Pemasukan dan Pengeluaran
-	sessionUserId := sessions.Values["ID"].(string)
+	idVal := sessions.Values["ID"]
+	sessionUserId, _ := idVal.(string)
+	if sessionUserId == "" {
+		http.Redirect(writer, request, "/login", http.StatusSeeOther)
+		return
+	}
 	model := models.NewFinancalModel(controller.db)
 	totalPemasukan, totalPengeluaran, err := model.GetFinancialTotalNominal(sessionUserId, selectedMonth, pemasukanOnly, pengeluaranOnly)
 	if err != nil {
