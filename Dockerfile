@@ -23,7 +23,7 @@ COPY . .
 RUN go build -o app .
 
 # --- Stage 2: Run the built binary ---
-FROM alpine
+FROM golang:1.24-alpine
 
 WORKDIR /app
 
