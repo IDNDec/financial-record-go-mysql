@@ -10,87 +10,332 @@
 
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        :root {
+            --primary-red: #dc3545;
+            --dark-red: #c82333;
+            --light-red: #f8d7da;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-dark: #212529;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-red) !important;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 6px rgba(220, 53, 69, 0.1);
+        }
+        
+        .page-header h1 {
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 0;
+        }
+        
+        .page-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.95;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(220, 53, 69, 0.15);
+        }
+        
+        .stat-card.income .card-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .stat-card.expense .card-header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .stat-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .stat-card .card-body h4 {
+            color: var(--primary-red);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-section label {
+            font-weight: 600;
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-select:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        
+        .data-table-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .data-table-card .card-header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+        }
+        
+        .data-table-card .card-header h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .table {
+            margin: 0;
+        }
+        
+        .table thead th {
+            background-color: #f8f9fa;
+            color: var(--primary-red);
+            font-weight: 600;
+            border: none;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s ease;
+        }
+        
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-red);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .btn-danger {
+            background-color: var(--primary-red);
+            border: none;
+        }
+        
+        .btn-danger:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+            color: var(--text-dark);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        
+        .badge {
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state-text {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div class="page-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1><i class="bi bi-wallet2"></i> Catatan Keuangan</h1>
+                    <p>Kelola dan pantau keuangan Anda dengan mudah</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <main class="my-5">
-            <h5><strong>Catatan Money</strong></h5>
 
             {{ if .error }}
-            <div class="alert alert-danger">{{ .error }}</div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i> {{ .error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             {{ end }}
             {{ if .success }}
-            <div class="alert alert-success">{{ .success }}</div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i> {{ .success }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             {{ end }}
 
-            <div class="row mb-3">
-                <div class="col-12 col-md-3">
-                    <div class="card">
-                        <div class="card-header">
-                            Total Pemasukan Bulan : {{ .selectedMonth }}
-                        </div>
-                        <div class="card-body">
-                            <h4>Rp. {{ formatIDR .total_pemasukan }}</h4>
-                        </div>
+            <div class="stats-container">
+                <div class="stat-card income">
+                    <div class="card-header">
+                        <i class="bi bi-arrow-down-circle"></i> Pemasukan - {{ .selectedMonth }}
+                    </div>
+                    <div class="card-body">
+                        <h4>Rp. {{ formatIDR .total_pemasukan }}</h4>
                     </div>
                 </div>
-                <div class="col-12 col-md-3">
-                    <div class="card">
-                        <div class="card-header">
-                            Total Pengeluaran Bulan : {{ .selectedMonth }}
-                        </div>
-                        <div class="card-body">
-                            <h4>Rp. {{ formatIDR .total_pengeluaran }}</h4>
-                        </div>
+                <div class="stat-card expense">
+                    <div class="card-header">
+                        <i class="bi bi-arrow-up-circle"></i> Pengeluaran - {{ .selectedMonth }}
+                    </div>
+                    <div class="card-body">
+                        <h4>Rp. {{ formatIDR .total_pengeluaran }}</h4>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    <label for="monthSelect">Filter Bulan :</label>
-                    <select class="form-select mb-3" id="monthSelect"
-                        onchange="updateQueryParam('selected_month', this.value)">
-                        {{range .months}}
-                        <option value="{{.}}" {{if eq . $.selectedMonth}}selected{{end}}>{{.}}</option>
-                        {{end}}
-                    </select>
-                </div>
-
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <div class="d-flex align-items-center gap-5">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="pemasukan" id="pemasukanOnly"
-                                        onclick="filterpemasukanOnly(this)" {{ if .pemasukanOnly }} checked {{ end }}>
-                                    <label class="form-check-label" for="pemasukan">
-                                        Hanya Pemasukan
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="pengeluaran"
-                                        id="pengeluaranOnly" onclick="filterpengeluaranOnly(this)" {{ if
-                                        .pengeluaranOnly }} checked {{ end }}>
-                                    <label class="form-check-label" for="pengeluaran">
-                                        Hanya Pengeluaran
-                                    </label>
-                                </div>
+
+            <div class="filter-section">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <label for="monthSelect"><i class="bi bi-calendar3"></i> Filter Bulan</label>
+                        <select class="form-select" id="monthSelect"
+                            onchange="updateQueryParam('selected_month', this.value)">
+                            {{range .months}}
+                            <option value="{{.}}" {{if eq . $.selectedMonth}}selected{{end}}>{{.}}</option>
+                            {{end}}
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <label class="d-block mb-2"><i class="bi bi-funnel"></i> Filter Tipe</label>
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="pemasukan" id="pemasukanOnly"
+                                    onclick="filterpemasukanOnly(this)" {{ if .pemasukanOnly }} checked {{ end }}>
+                                <label class="form-check-label" for="pemasukanOnly">
+                                    Hanya Pemasukan
+                                </label>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="d-flex align-items-center justify-content-md-end gap-3">
-                                <a href="/financial/download_financial_record?pemasukanOnly={{ .pemasukanOnly }}&pengeluaranOnly={{ .pengeluaranOnly }}&selected_month={{ .selectedMonth }}"
-                                    target="_blank" class="btn btn-sm btn-danger">Export PDF</a>
-                                <a href="/financial/add_financial_record" class="btn btn-sm btn-primary">Tambah Data</a>
-                                <a href="/profile" class="btn btn-sm btn-warning">Profile</a>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="pengeluaran"
+                                    id="pengeluaranOnly" onclick="filterpengeluaranOnly(this)" {{ if
+                                    .pengeluaranOnly }} checked {{ end }}>
+                                <label class="form-check-label" for="pengeluaranOnly">
+                                    Hanya Pengeluaran
+                                </label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+            </div>
+            <div class="data-table-card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <h5><i class="bi bi-table"></i> Data Keuangan</h5>
+                        <div class="action-buttons">
+                            <a href="/financial/download_financial_record?pemasukanOnly={{ .pemasukanOnly }}&pengeluaranOnly={{ .pengeluaranOnly }}&selected_month={{ .selectedMonth }}"
+                                target="_blank" class="btn btn-sm btn-light">
+                                <i class="bi bi-download"></i> Export PDF
+                            </a>
+                            <a href="/financial/add_financial_record" class="btn btn-sm btn-light">
+                                <i class="bi bi-plus-circle"></i> Tambah Data
+                            </a>
+                            <a href="/profile" class="btn btn-sm btn-light">
+                                <i class="bi bi-person-circle"></i> Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="padding: 0;">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -107,52 +352,75 @@
                                 {{ if .financials }}
                                 {{ range $index, $item := .financials }}
                                 <tr>
-                                    <td>{{ indexNo $index 1 }}</td>
+                                    <td><strong>{{ indexNo $index 1 }}</strong></td>
                                     <td>{{ .Date.Format "02 January 2006" }}</td>
-                                    <td class="text-capitalize">
+                                    <td>
                                         {{ if eq .Type "pemasukan" }}
-                                        <span class="badge text-bg-success">{{ .Type }}</span>
+                                        <span class="badge text-bg-success">
+                                            <i class="bi bi-arrow-down"></i> {{ .Type }}
+                                        </span>
                                         {{ else if eq .Type "pengeluaran"}}
-                                        <span class="badge text-bg-danger">{{ .Type }}</span>
+                                        <span class="badge text-bg-danger">
+                                            <i class="bi bi-arrow-up"></i> {{ .Type }}
+                                        </span>
                                         {{ else }}
-                                        <span class="badge text-bg-danger">{{ .Type }}</span>
+                                        <span class="badge text-bg-secondary">{{ .Type }}</span>
                                         {{ end }}
                                     </td>
-                                    <td class="text-capitalize">{{ .Category }}</td>
-                                    <td>Rp. {{ formatIDR .Nominal }}</td>
                                     <td>
+                                        <span style="background: var(--light-red); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.9rem;">
+                                            {{ .Category }}
+                                        </span>
+                                    </td>
+                                    <td><strong>Rp. {{ formatIDR .Nominal }}</strong></td>
+                                    <td style="max-width: 200px; word-wrap: break-word;">
                                         {{ if .Description }}
                                         {{ .Description }}
                                         {{ else }}
-                                        -
+                                        <span class="text-muted">-</span>
                                         {{ end }}
                                     </td>
                                     <td>
                                         {{ if .Attachment }}
                                         <img src="data:image/jpeg;base64,{{ .Attachment }}" alt="Foto Lampiran"
-                                            class="img-thumbnail"
-                                            style="height: 60px; width: 60px; object-fit: cover" />
+                                            class="img-thumbnail" style="height: 50px; width: 50px; object-fit: cover; cursor: pointer;" 
+                                            data-bs-toggle="modal" data-bs-target="#imageModal{{ .Id }}" />
+                                        <div class="modal fade" id="imageModal{{ .Id }}" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <img src="data:image/jpeg;base64,{{ .Attachment }}" alt="Foto Lampiran" style="width: 100%; border-radius: 8px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         {{ else }}
-                                        <img src="https://placehold.co/60x60" alt="Foto Kosong" class="img-thumbnail"
-                                            style="height: 60px; width: 60px; object-fit: cover" />
+                                        <span class="text-muted">-</span>
                                         {{ end }}
                                     </td>
                                     <td>
-                                        <a href="/financial/edit_financial_record?id={{ .Id }}"
-                                            class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="/financial/delete_financial_record?id={{ .Id }}"
-                                            class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                            Delete
-                                        </a>
+                                        <div class="action-buttons" style="gap: 0.25rem;">
+                                            <a href="/financial/edit_financial_record?id={{ .Id }}"
+                                                class="btn btn-sm btn-warning" title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="/financial/delete_financial_record?id={{ .Id }}"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Yakin ingin menghapus data ini?')" title="Hapus">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                                 {{ end }}
                                 {{ else }}
                                 <tr>
                                     <td colspan="8">
-                                        <div class="d-flex justify-content-center">
-                                            <span class="text-danger">Belum ada catatan keuangan</span>
+                                        <div class="empty-state">
+                                            <div class="empty-state-icon">
+                                                <i class="bi bi-inbox"></i>
+                                            </div>
+                                            <p class="empty-state-text">Belum ada catatan keuangan untuk periode ini</p>
                                         </div>
                                     </td>
                                 </tr>
