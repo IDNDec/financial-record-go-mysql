@@ -1,0 +1,14 @@
+name: amar
+
+services:
+  app:
+    image: bazigan/finapp:1.0
+    build: ./app
+    ports:
+      - "8000:8000"
+    volumes:
+      - vol-app:/app/public/user_photo
+
+volumes:
+  vol-app:
+  
